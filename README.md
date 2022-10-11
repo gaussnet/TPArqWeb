@@ -77,7 +77,7 @@ DELETE /clientes/X
 
 - Obtiene las cuentas de un cliente X:
 ```HTTP
-GET/clientes/X/cuentas
+GET /clientes/X/cuentas
 	RESPONSE:
 		200 Operación exitosa
 			[
