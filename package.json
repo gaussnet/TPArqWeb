@@ -1,0 +1,22 @@
+{
+  "name": "tparqweb",
+  "version": "1.0.0",
+  "description": "- Nombre del grupo: BancAPI\r - Integrante: Juan Manuel Urdinola\r - Descripción del negocio elegido: Se trata de un banco que pretende implementar una API para la gestión de clientes y sus cuentas (ABM) y transferencias entre cuentas. Los clientes pueden tener varias cuentas. Las cuentas pueden ser Caja de Ahorro (CA) o Cuenta Corriente (CC)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaussnet/TPArqWeb.git"
+  },
+  "author": "Juan M. Urdinola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gaussnet/TPArqWeb/issues"
+  },
+  "homepage": "https://github.com/gaussnet/TPArqWeb#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
