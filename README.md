@@ -6,7 +6,7 @@
 ## Endpoints
 - Obtiene todos los clientes:
 ```HTTP
-GET /clientes
+GET /api/clientes
 	RESPONSE:
 		200 Operación exitosa
 			[
@@ -26,7 +26,7 @@ GET /clientes
 
 - Obtiene un cliente X específico:
 ```HTTP
-GET /clientes/X
+GET /api/clientes/X
 	RESPONSE:
 		200 operación exitosa
 			{
@@ -40,7 +40,7 @@ GET /clientes/X
 
 - Crea un nuevo cliente:
 ```HTTP
-POST /clientes
+POST /api/clientes
 	{
     “id”:11876439,
 		"Nombre": “Pepe”,
@@ -54,7 +54,7 @@ POST /clientes
 
 - Actualiza un cliente X existente:
 ```HTTP
-PUT /clientes/X
+PUT /api/clientes/X
 	{
 		"Nombre": “Pepe”,
 		“Apellido”: “Garcia”
@@ -68,7 +68,7 @@ PUT /clientes/X
 
 - Elimina un cliente X existente:
 ```HTTP
-DELETE /clientes/X
+DELETE /api/clientes/X
 	RESPONSE
 		200 Operación exitosa
 		400 ID de cliente inválido
@@ -77,7 +77,7 @@ DELETE /clientes/X
 
 - Obtiene las cuentas de un cliente X:
 ```HTTP
-GET /clientes/X/cuentas
+GET /api/clientes/X/cuentas
 	RESPONSE:
 		200 Operación exitosa
 			[
@@ -99,7 +99,7 @@ GET /clientes/X/cuentas
 
 - Obtiene la cuenta Y de un cliente X:
 ```HTTP
-GET /clientes/X/cuentas/Y
+GET /api/clientes/X/cuentas/Y
 	RESPONSE:
 		200 Operación exitosa
 			{
@@ -115,7 +115,7 @@ GET /clientes/X/cuentas/Y
   
 - Crea una cuenta nueva para el cliente X:
 ```HTTP
-POST /clientes/X/cuentas			
+POST /api/clientes/X/cuentas			
 	{
 		“nroCuenta”: 5453453,
 		“tipo”: “CA,
@@ -130,7 +130,7 @@ POST /clientes/X/cuentas
 
 - Actualiza la cuenta Y del cliente X:
 ```HTTP
-PUT /clientes/X/cuentas/Y
+PUT /api/clientes/X/cuentas/Y
 	{
 		“tipo”: “CA,
 		“saldo”: 234,25
@@ -146,7 +146,7 @@ PUT /clientes/X/cuentas/Y
 
 - Elimina la cuenta Y del cliente X:
 ```HTTP
-DELETE /clientes/X/cuentas/Y
+DELETE /api/clientes/X/cuentas/Y
 	RESPONSE
 		200 Operación exitosa
 		400 ID de cliente inválido
@@ -157,7 +157,7 @@ DELETE /clientes/X/cuentas/Y
 
 - Realiza una transferencia desde la cuenta Y del cliente X a la cuenta especificada en el body:
 ```HTTP
-POST /clientes/X/cuentas/Y/transferencias
+POST /api/clientes/X/cuentas/Y/transferencias
 	{
 	  “destino”: 534535,
 	  “monto”: 56345
