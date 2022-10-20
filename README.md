@@ -11,14 +11,14 @@ GET /api/clientes
 		200 Operación exitosa
 			[
 				{
-			    “id”:11876439 	,
+					“id”:11876439 	,
 					“Nombre”: “Pepe”,
 					“Apellido”: “Garcia”
 				},
 				{
-			    “id”:11876439 	,
-					“Nombre”: “Pepe”,
-					“Apellido”: “Garcia”
+					“id”:23876543 	,
+					“Nombre”: “Daniel”,
+					“Apellido”: “Martinez”
 				}
 			]
 		404 Cliente no encontrado
@@ -30,9 +30,9 @@ GET /api/clientes/X
 	RESPONSE:
 		200 operación exitosa
 			{
-		    “id”:11876439,
-		    “Nombre”: “Pepe”,
-		    “Apellido”: “Garcia”
+				“id”:11876439,
+				“Nombre”: “Pepe”,
+				“Apellido”: “Garcia”
 			}
 		400 ID de cliente inválido
 		404 Cliente no encontrado
@@ -42,13 +42,13 @@ GET /api/clientes/X
 ```HTTP
 POST /api/clientes
 	{
-    “id”:11876439,
+		“id”:11876439,
 		"Nombre": “Pepe”,
 		“Apellido”: “Garcia”
 	}
 
 	RESPONSE
-		200 Operación exitosa
+		201 Operación exitosa
 		400 Datos inválidos
 ```
 
@@ -62,7 +62,7 @@ PUT /api/clientes/X
 
 	RESPONSE
 		200 Operación exitosa
-    400 ID de cliente inválido
+		400 ID de cliente inválido
 		404 Cliente no encontrado
 ```
 
@@ -84,11 +84,13 @@ GET /api/clientes/X/cuentas
 				{
 				  “nroCuenta”: 5453453,
 				  “tipo”: “CA,
+				  "idCliente: 11876439,
 				  “saldo”: 234,25
 				},
 				{
 				  “nroCuenta”: 128754,
 				  “tipo”: “CC,
+				  "idCliente: 23876543,
 				  “saldo”: 3456,45
 				}
 			]
@@ -105,6 +107,7 @@ GET /api/clientes/X/cuentas/Y
 			{
 			  “nroCuenta”: 5453453,
 			  “tipo”: “CA,
+			  "idCliente: 23876543,
 			  “saldo”: 234,25
 			}
 		400 ID de cliente inválido
@@ -119,6 +122,7 @@ POST /api/clientes/X/cuentas
 	{
 		“nroCuenta”: 5453453,
 		“tipo”: “CA,
+		"idCliente: 23876543,
 		“saldo”: 234,25
 	}
 
@@ -132,7 +136,9 @@ POST /api/clientes/X/cuentas
 ```HTTP
 PUT /api/clientes/X/cuentas/Y
 	{
+		“nroCuenta”: 5453453,
 		“tipo”: “CA,
+		"idCliente: 23876543,
 		“saldo”: 234,25
 	}
 
