@@ -75,6 +75,28 @@ DELETE /api/clientes/X
 		404 Cliente no encontrado
 ```
 
+- Obtiene todas las cuentas
+```HTTP
+GET /api/cuentas
+	RESPONSE:
+		200 operación exitosa
+			[
+				{
+				  “nroCuenta”: 5453453,
+				  “tipo”: “CA,
+				  "idCliente: 11876439,
+				  “saldo”: 234,25
+				},
+				{
+				  “nroCuenta”: 128754,
+				  “tipo”: “CC,
+				  "idCliente: 23456789,
+				  “saldo”: 3456,45
+				}
+			]
+		404 Cuenta no encontrada
+```
+
 - Obtiene las cuentas de un cliente X:
 ```HTTP
 GET /api/clientes/X/cuentas
@@ -90,7 +112,7 @@ GET /api/clientes/X/cuentas
 				{
 				  “nroCuenta”: 128754,
 				  “tipo”: “CC,
-				  "idCliente: 23876543,
+				  "idCliente: 11876439,
 				  “saldo”: 3456,45
 				}
 			]
@@ -116,9 +138,9 @@ GET /api/clientes/X/cuentas/Y
 		404 Cuenta no encontrada
 ```
   
-- Crea una cuenta nueva para el cliente X:
+- Crea una cuenta nueva:
 ```HTTP
-POST /api/clientes/X/cuentas			
+POST /api/cuentas			
 	{
 		“nroCuenta”: 5453453,
 		“tipo”: “CA,
@@ -132,11 +154,10 @@ POST /api/clientes/X/cuentas
 		404 Cliente no encontrado
 ```
 
-- Actualiza la cuenta Y del cliente X:
+- Actualiza la cuenta Y:
 ```HTTP
-PUT /api/clientes/X/cuentas/Y
+PUT /api/cuentas/Y
 	{
-		“nroCuenta”: 5453453,
 		“tipo”: “CA,
 		"idCliente: 23876543,
 		“saldo”: 234,25
@@ -150,20 +171,18 @@ PUT /api/clientes/X/cuentas/Y
 		404 Cuenta no encontrada
 ```
 
-- Elimina la cuenta Y del cliente X:
+- Elimina la cuenta Y:
 ```HTTP
-DELETE /api/clientes/X/cuentas/Y
+DELETE /api/cuentas/Y
 	RESPONSE
 		200 Operación exitosa
-		400 ID de cliente inválido
-		404 Cliente no encontrado
 		400 ID de cuenta inválido
 		404 Cuenta no encontrada	
 ```
 
-- Realiza una transferencia desde la cuenta Y del cliente X a la cuenta especificada en el body:
+- Realiza una transferencia desde la cuenta Y a la cuenta especificada en el body:
 ```HTTP
-POST /api/clientes/X/cuentas/Y/transferencias
+POST /api/cuentas/Y/transferencias
 	{
 	  “destino”: 534535,
 	  “monto”: 56345
@@ -174,4 +193,5 @@ POST /api/clientes/X/cuentas/Y/transferencias
 		404 Cliente no encontrado
 		400 ID de cuenta inválido
 		404 Cuenta no encontrada
+		500 Saldo insuficiente
 ```

@@ -5,7 +5,8 @@ const port = 3000
 let clients = [
     {id: 34567890, nombre: 'Juan', apellido: 'Perez'},
     {id: 239432563, nombre: 'Cecilia', apellido: 'Martinez'},
-    {id: 12547385, nombre: 'Luis', apellido: 'Gonzalez'}
+    {id: 12547385, nombre: 'Luis', apellido: 'Gonzalez'},
+    {id: 14538639, nombre: 'Sofia', apellido: 'Garcia'}
 ];
 
 let cuentas = [
@@ -27,13 +28,15 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/clientes', (request, response) => {
-    response.json(clients);
+    if(clients.length ===0) {
+        response.status(404).end();
+    } else {
+        response.json(clients);
+    }
+
 });
 
 app.get('/api/clientes/:id', (request, response) => {
-    //const idCliente= request.params.id;
-
-    //const clienteEnviar= clients.filter(cliente=> (cliente.id == idCliente));
     const clienteEnviar= clients.filter(cliente=> (cliente.id == request.params.id));
     if( clienteEnviar.length === 0) {
         response.status(404).end();
@@ -45,8 +48,7 @@ app.get('/api/clientes/:id', (request, response) => {
 
 app.post('/api/clientes', (request, response) => {
     console.log(request.body);
-    //console.log(request.body.id);
-    //const clienteCrear= clients.filter(cliente=> (cliente.id == request.body.id));
+
     if(clients.filter(cliente=> (cliente.id == request.body.id)).length === 0) {
         clients.push(request.body);
         response.status(201).send(request.body);
@@ -67,7 +69,8 @@ app.put('/api/clientes/:id', (request, response) => {
         clients[indiceCliente].apellido= request.body.apellido;
         response.json(clients[indiceCliente]);
     } else {
-        response.status(404).end();
+        response.status(404);
+        response.send('Cliente no existe');
     }
 
 });
@@ -78,18 +81,128 @@ app.delete('/api/clientes/:id', (request, response) => {
     const clienteAEliminar= clients.filter(cliente=> (cliente.id == idCliente));
 
     if(clienteAEliminar.length === 0) {
-        response.status(404).end();
+        response.status(404);
+        response.send('Cliente no existe');
     } else {
         clients= clients.filter(cliente=> (cliente.id != idCliente));
         response.json(clienteAEliminar);
     }
-    //const clienteAEliminar= clients.filter(cliente=> (cliente.id == idCliente));
-    //clients= clients.filter(cliente=> (cliente.id != idCliente));
 
-    //response.json(clients);
-    //response.json(clienteAEliminar);
-    //response.status(204).end(); //204: no content. Indica que no se devuelve contenido.
-    // end() lo uso para finalizar el response sin enviar datos
+});
+
+app.get('/api/cuentas', (request, response) => {
+    if(cuentas.length ===0) {
+        response.status(404).end();
+    } else {
+        response.json(cuentas);
+    }
+});
+
+app.get('/api/clientes/:idCliente/cuentas', (request, response) => {
+    if(clients.filter(cliente=> (cliente.id == request.params.idCliente)).length === 0) {
+        response.status(404);
+        response.send('Cliente no existe');
+    } else {
+        const cuentasCliente= cuentas.filter(cuenta=> (cuenta.idCliente == request.params.idCliente));
+        if(cuentasCliente.length === 0) {
+            response.status(404);
+            response.send('Cliente sin cuentas');
+        } else {
+            response.json(cuentasCliente);
+        }
+
+    }
+
+});
+
+app.get('/api/clientes/:idCliente/cuentas/:idCuenta', (request, response) => {
+    if(clients.filter(cliente=> (cliente.id == request.params.idCliente)).length === 0) {
+        response.status(404);
+        response.send('Cliente no existe');
+    } else {
+        const cuentasCliente= cuentas.filter(cuenta=> ((cuenta.idCliente == request.params.idCliente) && (cuenta.nroCuenta == request.params.idCuenta)));
+        if(cuentasCliente.length === 0) {
+            response.status(404);
+            response.send('La cuenta no existe o no corresponde al cliente');
+        } else {
+            response.json(cuentasCliente);
+        }
+    }
+});
+
+app.post('/api/cuentas', (request, response) => {
+    if(clients.filter(cliente=> (cliente.id == request.body.idCliente)).length === 0) {
+        response.status(404);
+        response.send('Cliente no existe');
+    } else {
+        if(cuentas.filter(cuenta=> (cuenta.nroCuenta == request.body.nroCuenta)).length === 0) {
+            cuentas.push(request.body);
+            response.status(201).send(request.body);
+        } else {
+            response.status(400); //qué status debería enviar?
+            response.send('Cuenta ya existe');
+        }
+    }
+});
+
+app.put('/api/cuentas/:idCuenta', (request, response) => {
+    if(clients.filter(cliente=> (cliente.id == request.body.idCliente)).length === 0) {
+        response.status(404);
+        response.send('Cliente no existe');
+    } else {
+        const cuentasCliente= cuentas.filter(cuenta=> ((cuenta.idCliente == request.body.idCliente) && (cuenta.nroCuenta == request.params.idCuenta)));
+        if(cuentasCliente.length === 0) {
+            response.status(404);
+            response.send('La cuenta no existe o no corresponde al cliente');
+        } else {
+            const indiceCuenta= cuentas.findIndex(cuenta => cuenta.nroCuenta == request.params.idCuenta);
+            if(indiceCuenta > -1) {
+                cuentas[indiceCuenta].tipo= request.body.tipo;
+                cuentas[indiceCuenta].idCliente= request.body.idCliente;
+                cuentas[indiceCuenta].saldo= request.body.saldo;
+                response.json(cuentas[indiceCuenta]);
+            } else {
+                response.status(404);
+                response.send('Cuenta no existe');
+            }
+            //response.json(cuentasCliente);
+        }
+    }
+});
+
+app.delete('/api/cuentas/:idCuenta', (request, response) => {
+    const cuentaAEliminar= cuentas.filter(cuenta=> (cuenta.nroCuenta == request.params.idCuenta));
+
+    if(cuentaAEliminar.length === 0) {
+        response.status(404);
+        response.send('Cuenta no existe');
+    } else {
+        cuentas= cuentas.filter(cuenta=> (cuenta.nroCuenta != request.params.idCuenta));
+        response.json(cuentaAEliminar);
+    }
+});
+
+app.post('/api/cuentas/:idCuenta/transferencias', (request, response) => {
+    const indiceCuentaOrig= cuentas.findIndex(cuenta => cuenta.nroCuenta == request.params.idCuenta);
+    const indiceCuentaDes= cuentas.findIndex(cuenta => cuenta.nroCuenta == request.body.destino);
+    if(indiceCuentaOrig > -1) {
+        if(cuentas[indiceCuentaOrig].saldo >= request.body.monto) {
+            if(indiceCuentaDes > -1) {
+                cuentas[indiceCuentaOrig].saldo -= request.body.monto;
+                cuentas[indiceCuentaDes].saldo += request.body.monto;
+                response.status(200).end();
+            } else {
+                response.status(404);
+                response.send('Cuenta de destino no existe');
+            }
+        } else {
+            response.status(500);   //Ver que código enviar
+            response.send('Saldo insuficiente');
+        }
+    } else {
+        response.status(404);
+        response.send('Cuenta de origen no existe');
+    }
 });
 
 app.listen(port, () => {
