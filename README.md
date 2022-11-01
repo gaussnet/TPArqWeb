@@ -34,7 +34,6 @@ GET /api/clientes/X
 				“Nombre”: “Pepe”,
 				“Apellido”: “Garcia”
 			}
-		400 ID de cliente inválido
 		404 Cliente no encontrado
 ```
 
@@ -49,7 +48,7 @@ POST /api/clientes
 
 	RESPONSE
 		201 Operación exitosa
-		400 Datos inválidos
+		400 Cliente ya existente
 ```
 
 - Actualiza un cliente X existente:
@@ -62,7 +61,6 @@ PUT /api/clientes/X
 
 	RESPONSE
 		200 Operación exitosa
-		400 ID de cliente inválido
 		404 Cliente no encontrado
 ```
 
@@ -71,7 +69,6 @@ PUT /api/clientes/X
 DELETE /api/clientes/X
 	RESPONSE
 		200 Operación exitosa
-		400 ID de cliente inválido
 		404 Cliente no encontrado
 ```
 
@@ -116,9 +113,8 @@ GET /api/clientes/X/cuentas
 				  “saldo”: 3456,45
 				}
 			]
-		400 ID de cliente inválido
 		404 Cliente no encontrado
-		404 Cuenta no encontrada
+		404 Cliente sin cuentas
 ```
 
 - Obtiene la cuenta Y de un cliente X:
@@ -132,9 +128,7 @@ GET /api/clientes/X/cuentas/Y
 			  "idCliente: 23876543,
 			  “saldo”: 234,25
 			}
-		400 ID de cliente inválido
 		404 Cliente no encontrado
-		400 ID de cuenta inválido
 		404 Cuenta no encontrada
 ```
   
@@ -149,8 +143,8 @@ POST /api/cuentas
 	}
 
 	RESPONSE
-		200 Operación exitosa
-		400 ID de cliente inválido
+		201 Operación exitosa
+		400 Cuenta ya existe
 		404 Cliente no encontrado
 ```
 
@@ -165,9 +159,7 @@ PUT /api/cuentas/Y
 
 	RESPONSE
 		200 Operación exitosa
-		400 ID de cliente inválido
 		404 Cliente no encontrado
-		400 ID de cuenta inválido
 		404 Cuenta no encontrada
 ```
 
@@ -176,7 +168,6 @@ PUT /api/cuentas/Y
 DELETE /api/cuentas/Y
 	RESPONSE
 		200 Operación exitosa
-		400 ID de cuenta inválido
 		404 Cuenta no encontrada	
 ```
 
@@ -189,9 +180,7 @@ POST /api/cuentas/Y/transferencias
 	}
 	RESPONSE
 		200 Operación exitosa
-		400 ID de cliente inválido
-		404 Cliente no encontrado
-		400 ID de cuenta inválido
-		404 Cuenta no encontrada
+		404 Cuenta de origen no encontrada
+		404 Cuenta de destino no encontrada
 		500 Saldo insuficiente
 ```

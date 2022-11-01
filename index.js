@@ -24,7 +24,7 @@ app.use((request, response, next) => {
 });
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('BancAPI!!');
 })
 
 app.get('/api/clientes', (request, response) => {
@@ -39,7 +39,8 @@ app.get('/api/clientes', (request, response) => {
 app.get('/api/clientes/:id', (request, response) => {
     const clienteEnviar= clients.filter(cliente=> (cliente.id == request.params.id));
     if( clienteEnviar.length === 0) {
-        response.status(404).end();
+        response.status(404);
+        response.send('Cliente no existe');
     } else {
         response.json(clienteEnviar);
     }
@@ -203,6 +204,10 @@ app.post('/api/cuentas/:idCuenta/transferencias', (request, response) => {
         response.status(404);
         response.send('Cuenta de origen no existe');
     }
+});
+
+app.use(function(req, res, next) {
+    res.status(404).send('Recurso no encontrado!');
 });
 
 app.listen(port, () => {
