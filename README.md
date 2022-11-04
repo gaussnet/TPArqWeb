@@ -182,5 +182,5 @@ POST /api/cuentas/Y/transferencias
 		200 Operación exitosa
 		404 Cuenta de origen no encontrada
 		404 Cuenta de destino no encontrada
-		500 Saldo insuficiente
+		400 Saldo insuficiente
 ```
