@@ -197,7 +197,7 @@ app.post('/api/cuentas/:idCuenta/transferencias', (request, response) => {
                 response.send('Cuenta de destino no existe');
             }
         } else {
-            response.status(500);   //Ver que código enviar
+            response.status(400);   //Ver que código enviar
             response.send('Saldo insuficiente');
         }
     } else {
