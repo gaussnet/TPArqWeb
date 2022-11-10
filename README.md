@@ -94,6 +94,20 @@ GET /api/cuentas
 		404 Cuenta no encontrada
 ```
 
+- Obtiene la cuenta Y 
+```HTTP
+GET /api/cuentas/Y
+	RESPONSE:
+		200 operación exitosa
+				{
+				  “nroCuenta”: 5453453,
+				  “tipo”: “CA,
+				  "idCliente: 11876439,
+				  “saldo”: 234,25
+				}
+		404 Cuenta no encontrada
+```
+
 - Obtiene las cuentas de un cliente X:
 ```HTTP
 GET /api/clientes/X/cuentas

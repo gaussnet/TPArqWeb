@@ -116,6 +116,16 @@ app.get('/api/clientes/:idCliente/cuentas', (request, response) => {
 
 });
 
+app.get('/api/cuentas/:idCuenta', (request, response) => {
+        const cuentaResul= cuentas.filter(cuenta=> (cuenta.nroCuenta == request.params.idCuenta));
+        if(cuentaResul.length === 0) {
+            response.status(404);
+            response.send('La cuenta no existe');
+        } else {
+            response.json(cuentaResul);
+        }
+});
+
 app.get('/api/clientes/:idCliente/cuentas/:idCuenta', (request, response) => {
     if(clients.filter(cliente=> (cliente.id == request.params.idCliente)).length === 0) {
         response.status(404);
